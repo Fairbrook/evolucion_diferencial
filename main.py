@@ -36,6 +36,7 @@ bests = []
 averages = []
 while abs(evaluate(worst)- evaluate(best)) > 0.01:
     generation += 1
+
     indexes.append(generation)
     evol.iteration(evaluate)
 
@@ -45,11 +46,13 @@ while abs(evaluate(worst)- evaluate(best)) > 0.01:
 
     best = evol.get_best(evaluate)
     bests.append(best)
+    print("Generation ", generation, evaluate(best))
     worst = evol.get_worst(evaluate)
    
 
 best_x, best_y = best
 best_z = f(best_x, best_y)
+print("Mejor punto: ", best_x, best_y, best_z)
 
 # Graficación del proceso
 resolution = 150

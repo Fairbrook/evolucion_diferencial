@@ -1,5 +1,6 @@
 from math import sqrt
 from random import randint, uniform, seed
+from secrets import choice
 from typing import Callable, Tuple
 
 
@@ -32,16 +33,16 @@ class DiferentialEvolution:
     def iteration(self, evaluate: Callable):
         test_vectors = []
         for individual in self.population:
-            x1 = self.random_solution()
-            x2 = self.random_solution()
-            x3 = self.random_solution()
-            while x1 == individual:
-                x1 = self.random_solution()
-            while x2 == individual or x2 == x1:
-                x2 = self.random_solution()
-            while x3 == individual or x3 == x2 or x3 == x1:
-                x3 = self.random_solution()
-            v = self.add_scalar(x1, self.distance(x2, x3))
+            xr1 = choice(self.population)
+            xr2 = choice(self.population)
+            xr3 = choice(self.population)
+            while xr1 == individual:
+                xr1 = choice(self.population)
+            while xr2 == individual or xr2 == xr1:
+                xr2 = choice(self.population)
+            while xr3 == individual or xr3 == xr2 or xr3 == xr1:
+                xr3 = choice(self.population)
+            v = self.add_scalar(xr1, self.distance(xr2, xr3)*self.F)
             u = [g for g in individual]
             rd = randint(0, 2)
             for d in range(2):
